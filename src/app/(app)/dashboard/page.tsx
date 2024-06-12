@@ -123,8 +123,13 @@ const Page = () => {
   }
 
   const username = session?.user?.username;
-  const baseUrl = `${window.location.protocol}//${window.location.host}`;
-  const uniqueUrl = `${baseUrl}/u/${username}`;
+  let baseUrl = "";
+  let uniqueUrl = "";
+
+  if (typeof window !== 'undefined') {
+    baseUrl = `${window.location.protocol}//${window.location.host}`;
+    uniqueUrl = `${baseUrl}/u/${username}`;
+  }
   const copyToClipboard = () => {
     navigator.clipboard.writeText(uniqueUrl);
     toast({
