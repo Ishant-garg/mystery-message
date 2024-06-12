@@ -14,7 +14,7 @@ export async function POST(request: Request) {
             return Response.json({ success: false, message: "User not found" }, { status: 404 });
         }
         if(!user.isAcceptingMessages){
-            return Response.json({ success: false, message: "User not accepting messages" }, { status: 400 });
+            return Response.json({ success: false, message: "User is not accepting messages" }, { status: 400 });
         }
         const newMessage = {
             content,
@@ -26,6 +26,7 @@ export async function POST(request: Request) {
         return Response.json({ success: true, message: "Message sent successfully" }, { status: 200 });
     }
     catch(err){
+        // console.log(err)
         return Response.json({ success: false, message: "Error in sending message" }, { status: 500 });
     }
 }

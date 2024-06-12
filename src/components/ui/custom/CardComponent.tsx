@@ -19,13 +19,50 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
-export const CardComponent = () => {
+
+import { format, parseISO } from 'date-fns';
+import axios, { AxiosError } from "axios";
+import { useToast } from "../use-toast";
+import { ApiResponse } from "@/app/types/ApiResponse";
+
+const formatDate = (isoString : any) => {
+  const date = parseISO(isoString);
+  return format(date, 'MMM dd, yyyy h:mm a');
+};
+export const CardComponent = ({content , createdAt , messageId , fetchMessages} : {content : string , createdAt : Date , messageId : string , fetchMessages : Function}) => {
+  const formattedDate = formatDate(createdAt);
+  const {toast} =   useToast()
+  const handleonClick = async () => {
+    
+    try{
+      const respose = await axios.post('/api/delete-message' , {
+        // @ts-ignore
+        messageId : messageId
+      })
+
+      fetchMessages(true);
+      toast({
+        title: "Message Deleted",
+        description: respose.data.message,
+      });
+    }
+    catch(error){
+      const axiosError = error as AxiosError<ApiResponse>;
+      toast({
+        title: "Error",
+        description: axiosError.response?.data.message,
+        variant: "destructive",
+      })
+    }
+   
+
+  }
   return (
-    <Card className="flex w-fit px-6 justify-between  ">
+    <Card className="flex w-full pr-2 md:px-6 justify-between  ">
       <div>
       <CardHeader>
-        <CardTitle>Card Title</CardTitle>
-        <CardDescription>Card Description</CardDescription>
+        <CardTitle>{content}</CardTitle>
+        <CardDescription>{formattedDate}</CardDescription>
       </CardHeader>
 
       </div>
@@ -44,7 +81,7 @@ export const CardComponent = () => {
             </AlertDialogHeader>
             <AlertDialogFooter>
               <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction>Continue</AlertDialogAction>
+              <AlertDialogAction onClick={() => handleonClick()}>Continue</AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>

@@ -12,23 +12,23 @@ const NavBar = () => {
   const user = session?.user as User;
 
   return (
-    <div className='border-b-2'>
-      <div className='flex justify-around container py-3'>
+    <div className='border-b-2 bg-slate-900 text-white'>
+      <div className='flex justify-between container md:py-5 py-2' >
         <div>
-          <h1 className='text-3xl font-extrabold'>Mystery Message</h1>
+          <h1 className='md:text-3xl text-xl font-extrabold'>Mystery Message</h1>
         </div>
         <div className='my-auto flex gap-4'>
           {session ? (
             <div className='flex gap-6'>
-              <div className="text-xl my-auto">Welcome, {user.username}</div>
+              <div className="md:text-xl text-sm   my-auto">Welcome, {user.username}</div>
 
-              <Button onClick={() => signOut()}>Logout</Button>
+              <Button className="bg-black border-2 border-white[0.5] dark:bg-white" onClick={() => signOut()}>Logout</Button>
               
             </div>
           ) : (
             <Link href='/sign-up'>
              
-                <Button>Sign Up</Button>
+                <Button >Sign Up</Button>
           
             </Link>
           )}<ModeToggle/>
