@@ -58,11 +58,11 @@ const Page = () => {
     <div className="flex justify-center items-center min-h-screen bg-gray-800 ">
       <div className="w-full max-w-md p-6 space-y-6 bg-white rounded-lg  shadow-md">
       <div className="text-center">
-          <h1 className="text-3xl font-extrabold tracking-tight lg:text-5xl mb-4">
+          <h1 className="text-3xl font-extrabold tracking-tight lg:text-5xl dark:text-black mb-4">
           Verify Your Account
 
           </h1>
-          <p>Enter the verification code sent to your email</p>
+          <p className="dark:text-black">Enter the verification code sent to your email</p>
         </div>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -72,17 +72,17 @@ const Page = () => {
               name="code"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Code</FormLabel>
+                  <FormLabel className="dark:text-black">Code</FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter code" {...field} />
+                    <Input className="dark:bg-white dark:text-black" placeholder="Enter code" {...field} />
                   </FormControl>
 
-                  <FormMessage />
+                
                 </FormItem>
               )}
             />
         
-            <Button className="w-full " type="submit" >
+            <Button  className="w-full " type="submit" >
                 Submit
             </Button>
           </form>
